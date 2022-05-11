@@ -82,3 +82,37 @@ class Warrior extends Heroes{
 
     }
 }
+
+
+//boucles pour poser questions
+
+const askQuestions = (question) =>{
+    let userAnswer;
+    do{
+        userAnswer = +prompt(question);
+    }
+    while(Number.isNaN(userAnswer) || userAnswer <= 0)
+    return userAnswer;
+}
+
+const createHeroes = (heroClass) =>{
+    const nom = prompt(`Donnez un nom à votre ${heroClass}`);
+    const maxPv = askQuestions(`Combien de points de vie lui accordez-vous ?`)
+    const pa = askQuestions(`Combien de points d'attaque lui accordez-vous ?`)
+    console.log(maxPv)
+    console.log(pa)
+    switch(heroClass){
+        case 'archer':
+            return new Archer (nom, maxPv, pa);
+        case 'warrior':
+            return new Warrior (nom, maxPv, pa);
+        case 'mage':
+            return new Mage (nom, maxPv, pa);
+    }
+
+}
+
+const archer = createHeroes('archer')
+
+console.table(archer);
+
