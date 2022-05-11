@@ -1,20 +1,4 @@
-class Boss {
-    constructor(nom, pv, pa ){
-        this.nom = nom;
-        this.pv = pv;
-        this.pa = pa;
-        this.enigme = () =>{
 
-        }
-        this.attack = () =>{
-            if(Boss.pv <= Boss.pv * 0.2){
-
-            }else{
- 
-            }
-        }
-    }
-}
 
 let Sauron = new Boss("Sauron", 150, 30);
 let Chronos = new Boss("Chronos", 200, 25);
