@@ -45,7 +45,7 @@ class Archer extends Heros{
 class Warrior extends Heros{
     constructor(nom, pv, pa, ptRage){
     super(nom, pv, pa);
-    this.ptRage = ptRage;
+    this.ptRage = 0;
     this.attack =()=>{
 
     }
@@ -107,14 +107,14 @@ function createHeros(){
     PointsRestant -= mage.pa;
     alert(`Il vous reste ${PointsRestant} points`)
 
-    console.log(archer)
-    console.log(warrior)
-    console.log(mage)
-
     if(PointsRestant < 0){
         alert("Vous avez réparti trop de points. Veuillez réessayez!")
+        createHeros();
     }else{
         alert("La partie commence")
+        console.log(archer)
+        console.log(warrior)
+        console.log(mage)
     }
 }
 
