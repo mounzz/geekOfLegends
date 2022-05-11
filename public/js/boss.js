@@ -30,11 +30,7 @@ class Boss {
         return this.riddles[random];
     }
     attack(){
-        if(this.maxPv <= this.maxPv * 0.2){
-            this.pickRiddles();
-        }else{
-            return this.pa;
-        }
+        return this.pa;
     }
     
 }

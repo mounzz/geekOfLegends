@@ -75,6 +75,7 @@ class Warrior extends Heroes{
         super.attack();
 
         if(this.ragePoints === 4){
+            this.ragePoints = 0;
             return this.pa *=1.25;
         }else{
             return this.pa;
