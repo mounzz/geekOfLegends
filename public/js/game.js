@@ -5,12 +5,12 @@ class Heroes {
         this.pa = pa;
     }
     attack() {
-        this.pa *= 1.4;
-        this.currentPv *= 0.75;
+        Math.floor(this.pa *= 1.4);
+        Math.floor(this.currentPv *= 0.75);
     }
     defense() {
-        this.pa *= 0.5;
-        this.currentPv *= 2.5;
+        Math.floor(this.pa *= 0.5);
+        Math.floor(this.currentPv *= 2.5);
     }
 }
 
@@ -208,7 +208,17 @@ while ((!isBossDead(selectedBoss) && !resolvedRiddle) && !areHeroesDead(heroes))
         const userChoice = confirm(`Voulez-vous attaquer?`);
 
         if (userChoice) {
-            selectedBoss.currentPv -= Math.floor((heroes.archer.attack() + heroes.warrior.attack() + heroes.mage.attack()));
+            if(selectedBoss.currentPv >= 0)
+            {
+                selectedBoss.currentPv = selectedBoss.currentPv - Math.floor(heroes.archer.attack() + heroes.warrior.attack() + heroes.mage.attack());
+            }
+            // console.log("lol" + (isNaN(selectedBoss.currentPv)));
+            // console.log("lolilol " + (isNaN(Math.floor((heroes.archer.attack() + heroes.warrior.attack() + heroes.mage.attack())))));
+            console.log(isNaN(Math.floor(heroes.archer.attack())));
+            console.log(isNaN(Math.floor(heroes.mage.attack())));
+            console.log(isNaN(Math.floor(heroes.warrior.attack())));
+
+
 
             if (selectedBoss.currentPv <= selectedBoss.maxPv * 0.2) {
                 selectedBoss.currentPv = selectedBoss.maxPv * 0.2;
