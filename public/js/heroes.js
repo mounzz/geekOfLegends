@@ -5,12 +5,12 @@ class Heroes{
         this.pa = pa;
     }
     attack(){
-        this.pa *= 1.4;
-        this.currentPv *= 0.75;
+        Math.floor(this.pa *= 1.4);
+        Math.floor(this.currentPv *= 0.75);
     }
     defense(){
-        this.pa *= 0.5;
-        this.currentPv *= 2.5;
+        Math.floor(this.pa *= 0.5);
+        Math.floor(this.currentPv *= 2.5);
     }
 }
 

@@ -185,27 +185,31 @@ const isBossDead = (selectedBoss) => {
     return selectedBoss.currentPv <= 0;
 }
 
+//instancer les boss && heros
+
 const heroes = pointsRepartition();
-const chronos = new Boss("Chronos", 200, 20);
-const lilith = new Boss("Lilith", 300, 50);
-const sauron = new Boss("Sauron", 250, 30);
+const chronos = new Boss("Chronos", 2000, 20);
+const lilith = new Boss("Lilith", 2000, 50);
+const sauron = new Boss("Sauron", 2500, 30);
 const bosses = [chronos, lilith, sauron];
-// const selectedBoss = selectBoss();
-const selectedBoss = lilith;
+const selectedBoss = selectBoss();
+
+alert(`Vous allez affronter ${selectedBoss.nom}`)
 
 let isHeroesTurn = true;
+let resolvedRiddle = false
 
-while (!isBossDead(selectedBoss) && !areHeroesDead(heroes)) {
-    const bossTargets = [];
+//combat par tour
+
+while ((!isBossDead(selectedBoss) && !resolvedRiddle) && !areHeroesDead(heroes)) {
+    const bossTargets = ['archer', 'warrior', 'mage'];
     if (isHeroesTurn) {
 
         const userChoice = confirm(`Voulez-vous attaquer?`);
-        console.log(userChoice)
 
         if (userChoice) {
-            console.table(selectedBoss)
-            selectedBoss.currentPv -= (heroes.archer.attack() + heroes.warrior.attack() + heroes.mage.attack());
-            console.table(selectedBoss)
+            selectedBoss.currentPv -= Math.floor((heroes.archer.attack() + heroes.warrior.attack() + heroes.mage.attack()));
+
             if (selectedBoss.currentPv <= selectedBoss.maxPv * 0.2) {
                 selectedBoss.currentPv = selectedBoss.maxPv * 0.2;
             }
@@ -223,27 +227,29 @@ while (!isBossDead(selectedBoss) && !areHeroesDead(heroes)) {
     } else {
         if (selectedBoss.currentPv <= selectedBoss.maxPv * 0.2) {
             const finalAttack = selectedBoss.pickRiddles();
-            let resolvedRiddle = false;
+
             let tentatives = 3;
             while (tentatives > 0 && !resolvedRiddle) {
                 let userAnswer = prompt(finalAttack.question);
 
                 if (userAnswer === finalAttack.reponse) {
                     resolvedRiddle = true;
-                    selectedBoss.currentPv = 0;
                     alert(`Vous avez vaincu le boss`);
                 } else {
                     tentatives--;
                 }
                 if (tentatives === 0) {
-                    alert(`Vous avez perdu`);
+                    heroes.archer.currentPv = 0
+                    heroes.warrior.currentPv = 0
+                    heroes.mage.currentPv = 0
                 }
             }
 
         } else {
+            
             const currentTarget = Math.floor(Math.random() * bossTargets.length);
 
-            switch (currentTarget) {
+            switch (bossTargets[currentTarget]) {
                 case 'archer':
                     heroes.archer.currentPv -= selectedBoss.pa
                     break;
@@ -254,10 +260,18 @@ while (!isBossDead(selectedBoss) && !areHeroesDead(heroes)) {
                     heroes.mage.currentPv -= selectedBoss.pa
                     break;
             }
-            console.table(heroes)
-            console.table(currentTarget)
-
+            console.log(bossTargets[currentTarget])
+            console.table(heroes);
+            console.table(selectedBoss)
+        }
+        if(areHeroesDead(heroes)){
+            alert("Vous avez perdu!")
         }
     }
     isHeroesTurn = !isHeroesTurn;
+    
 }
+
+
+
+
